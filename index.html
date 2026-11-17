@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K MART STORE</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#081426;color:#fff;font-family:Arial,sans-serif}
+header{background:#101f38;padding:20px;border-bottom:2px solid #d6ad55}
+.logo{color:#e6bd65;font-size:25px;font-weight:bold}
+.sub{color:#bbb;font-size:12px;margin-top:5px}
+nav{display:flex;overflow-x:auto;background:#142744;padding:10px;gap:8px}
+nav button{background:#203957;color:white;border:1px solid #b9954e;padding:12px;border-radius:7px;white-space:nowrap}
+nav button.active{background:#d6ad55;color:#101b2d}
+main{padding:18px}
+h2{color:#e6bd65}
+.panel{background:#142744;padding:18px;border:1px solid #a98a4c;border-radius:12px;margin:12px 0}
+.stat{font-size:25px;color:#e6bd65;font-weight:bold}
+button{cursor:pointer}
+.screen{display:none}
+.screen.active{display:block}
+input,select{width:100%;padding:13px;margin:8px 0;background:#09172b;color:white;border:1px solid #b9954e;border-radius:7px}
+.gold{background:#d6ad55;color:#101b2d;padding:12px 20px;border:0;border-radius:7px;font-weight:bold}
+footer{text-align:center;color:#aaa;padding:20px}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">👑 K MART STORE</div>
+<div class="sub">SHOP MANAGEMENT & POS BILLING</div>
+</header>
+
+<nav id="navigation"></nav>
+<main id="content"></main>
+<footer>K MART STORE © 2026</footer>
+
+<script>
+const pages=[
+"Dashboard",
+"Product Center",
+"Purchase Management",
+"POS Billing",
+"Customers & Suppliers",
+"Accounts & Expenses",
+"Reports & Analytics",
+"Settings & Security"
+];
+
+const content=document.getElementById("content");
+const navigation=document.getElementById("navigation");
+
+function openPage(name){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+document.getElementById("page-"+name).classList.add("active");
+document.getElementById("btn-"+name).classList.add("active");
+}
+
+pages.forEach((name,i)=>{
+let btn=document.createElement("button");
+btn.id="btn-"+name;
+btn.textContent=name;
+btn.onclick=()=>openPage(name);
+navigation.appendChild(btn);
+
+let section=document.createElement("section");
+section.id="page-"+name;
+section.className="screen";
+
+if(i===0){
+section.innerHTML=`
+<h2>Dashboard</h2>
+<div class="panel">Today's Sales <div class="stat">Rs. 0</div></div>
+<div class="panel">Total Products <div class="stat">0</div></div>
+<div class="panel">Customer Balance <div class="stat">Rs. 0</div></div>
+<div class="panel">Stock Status <div class="stat">Ready</div></div>`;
+}else{
+section.innerHTML=`
+<h2>${name}</h2>
+<div class="panel">
+<h3>${name}</h3>
+<p>Welcome to K MART STORE.</p>
+<p>This module will be developed in its approved design.</p>
+</div>`;
+}
+content.appendChild(section);
+});
+
+let login=document.createElement("section");
+login.id="page-Login";
+login.className="screen";
+login.innerHTML=`
+<h2>Login</h2>
+<div class="panel">
+<h3>K MART STORE</h3>
+<input placeholder="Username or Email">
+<input type="password" placeholder="Password">
+<button class="gold" onclick="openPage('Dashboard')">Login</button>
+</div>`;
+content.prepend(login);
+
+let loginBtn=document.createElement("button");
+loginBtn.id="btn-Login";
+loginBtn.textContent="Login";
+loginBtn.onclick=()=>openPage("Login");
+navigation.prepend(loginBtn);
+
+openPage("Login");
+</script>
+</body>
+</html>
